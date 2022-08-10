@@ -5,20 +5,22 @@ function getComputerChoice() {
     return randomChoice;
 }
 
-const playerSelection = "Rock";
-const computerSelection = getComputerChoice();
+const playerSelection = prompt("Rock, Paper or Scissors? Please Make Your Choice").toLowerCase();
+const computerSelection = getComputerChoice().toLowerCase();
+
+console.log(playerSelection);
+console.log(computerSelection);
 
 function playRound(playerSelection, computerSelection) {
-    if ((playerSelection === "Rock" && computerSelection === "Scissors") || (playerSelection === "Paper" && computerSelection === "Rock") || (playerSelection === "Scissors" && computerSelection === "Paper")) {
+    if ((playerSelection === "rock" && computerSelection === "scissors") || (playerSelection === "paper" && computerSelection === "rock") || (playerSelection === "scissors" && computerSelection === "paper")) {
         console.log("You Win! " + playerSelection + " beats " + computerSelection + "!");
     }
-    else if ((playerSelection === "Paper" && computerSelection === "Scissors") || (playerSelection === "Scissors" && computerSelection === "Rock") || (playerSelection === "Rock" && computerSelection === "Paper")) {
+    else if ((playerSelection === "paper" && computerSelection === "scissors") || (playerSelection === "scissors" && computerSelection === "rock") || (playerSelection === "rock" && computerSelection === "paper")) {
         console.log("You Lose... " + computerSelection + " beats " + playerSelection + "!");
     }
-    else {
-        console.log("Tie Game!");
+    else if (playerSelection === computerSelection) {
+        console.log("Tie Game! You both played " + playerSelection);
     }
 }
 
-
-playRound(playerSelection,computerSelection);
+playRound(playerSelection, computerSelection);
