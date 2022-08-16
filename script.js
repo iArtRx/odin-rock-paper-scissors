@@ -47,6 +47,8 @@ game = () => {
         console.log(`Your Score is ${playerScore}. The Computer Score is ${computerScore}. You Won the Game!`)
     }else if(computerScore > playerScore){
         console.log(`Your Score is ${playerScore}. The Computer Score is ${computerScore}. You Lost the Game...`)
+    }else if(playerScore === computerScore){
+        console.log(`You and the Computer both ended with a score of: ${playerScore}. The Game was a Draw.`)
     }
 }
 
