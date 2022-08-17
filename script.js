@@ -1,3 +1,12 @@
+let win = `You won the round`;
+let lose = `You lost the round`;
+let tie = `Round tied`;
+let playerSelection;
+let computerSelection;
+let playerScore = 0
+let computerScore = 0;
+
+
 getComputerChoice = () => {
     const computerPick = ["rock", "paper", "scissors"];
     const randomChoice = computerPick[Math.floor(Math.random() * computerPick.length)]
@@ -6,51 +15,71 @@ getComputerChoice = () => {
 }
 
 
-playRound = (playerSelection, computerSelection) => {
+playRound = (playerSelection) => {
+    computerSelection = getComputerChoice();
+    console.log(computerSelection);
     if((playerSelection === "rock" && computerSelection === "scissors") || (playerSelection === "scissors" && computerSelection === "paper") || (playerSelection === "paper" && computerSelection === "rock")) {
+        playerScore ++;
         return win;
     }else if((playerSelection === "rock" && computerSelection === "paper") || (playerSelection === "paper" && computerSelection === "scissors") || (playerSelection === "scissors" && computerSelection === "rock")) {
+        computerScore ++;
         return lose;
     }else if(playerSelection === computerSelection) {
         return tie;
     }   
 }
 
-let win = `You won the round`;
-let lose = `You lost the round`;
-let tie = `Round tied`;
 
+const buttons = document.querySelectorAll("button");
+const gameBoard = document.querySelector("#game-board");
 
-game = () => {
-    let playerScore = 0;
-    let computerScore = 0;
+const start = document.querySelector("#start-menu");
+start.addEventListener("click", e => {
+    start.style.display = "none";
+    gameBoard.style.display = "block";
+});
 
-    for(let i = 0; i < 5; i++) {
-
-        let playerSelection = prompt("Choose your weapon: Rock, Paper or Scissors?").toLowerCase();
+buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+        playerSelection = button.id;
         console.log(playerSelection);
 
-        let computerSelection = getComputerChoice();
-        console.log(computerSelection);
-
-        let result = (playRound(playerSelection, computerSelection));
-        if(result === win){
-            playerScore += 1;
-        }else if(result === lose){
-            computerScore += 1;
-        }
-
+        let result = (playRound(playerSelection));
         console.log(result);
-    }
 
-    if(playerScore > computerScore){
-        console.log(`Your Score is ${playerScore}. The Computer Score is ${computerScore}. You Won the Game!`)
-    }else if(computerScore > playerScore){
-        console.log(`Your Score is ${playerScore}. The Computer Score is ${computerScore}. You Lost the Game...`)
-    }else if(playerScore === computerScore){
-        console.log(`You and the Computer both ended with a score of: ${playerScore}. The Game was a Draw.`)
-    }
+        scoreboard();
+
+       if(playerScore === 5 || computerScore === 5){
+        gameOver();
+       }
+       
+    });
+});
+// Game Over Screen after the player or computer reaches the maximum score. 
+gameOver = () => {
+    console.log("Game Over");
+    gameBoard.style.display = "none";
+    playerScore = 0;
+    computerScore = 0;
+    start.style.display = "block";
+}
+
+// Scoreboard that keeps track of the score.
+scoreboard = () => {
+    console.log(playerScore);
+    console.log(computerScore);
 }
 
 
-game();
+
+
+
+
+
+
+    
+
+
+
+
+
