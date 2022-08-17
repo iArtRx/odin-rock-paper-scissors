@@ -9,17 +9,21 @@
 <body>
     <h1>Let's Play Rock, Paper, Scissors.</h1>
     <div class="container">
-        <div class="scoreboard">
-            <p>Score will be here</p>
+        <div class="scoreboard" style ="display: none">
+            <div id="playerScore"></div>
+            <div id="computerScore"></div>
+            <div id="scoreboardMessage"></div>
         </div>
         <div class id="start-menu">
             <button id="play">Play</button>
         </div>
         <div id="game-board" style="display: none">
-            <button id="rock">Rock</button>
-            <button id="paper">Paper</button>
-            <button id="scissors">Scissors</button>
+            <button id="Rock">Rock</button>
+            <button id="Paper">Paper</button>
+            <button id="Scissors">Scissors</button>
         </div>
+
+        <div class="game-over" style="display: none"></div>
     </div>
 
 

@@ -1,52 +1,55 @@
-let win = `You won the round`;
-let lose = `You lost the round`;
-let tie = `Round tied`;
+//DOM selectors
+const buttons = document.querySelectorAll("button");
+const scoreBoard = document.querySelector(".scoreboard");
+const scoreBoardMessage = document.querySelector("#scoreboardMessage");
+const displayPlayerScore = document.querySelector("#playerScore");
+const displayComputerScore = document.querySelector("#computerScore");
+const gameBoard = document.querySelector("#game-board");
+
+
+//variables
 let playerSelection;
 let computerSelection;
 let playerScore = 0
 let computerScore = 0;
 
-
+//Game Logic
 getComputerChoice = () => {
-    const computerPick = ["rock", "paper", "scissors"];
+    const computerPick = ["Rock", "Paper", "Scissors"];
     const randomChoice = computerPick[Math.floor(Math.random() * computerPick.length)]
 
     return randomChoice;
 }
 
-
 playRound = (playerSelection) => {
     computerSelection = getComputerChoice();
     console.log(computerSelection);
-    if((playerSelection === "rock" && computerSelection === "scissors") || (playerSelection === "scissors" && computerSelection === "paper") || (playerSelection === "paper" && computerSelection === "rock")) {
+    if((playerSelection === "Rock" && computerSelection === "Scissors") || (playerSelection === "Scissors" && computerSelection === "Paper") || (playerSelection === "Paper" && computerSelection === "Rock")) {
+        scoreBoardMessage.textContent = `${playerSelection} beats ${computerSelection}`;
         playerScore ++;
-        return win;
-    }else if((playerSelection === "rock" && computerSelection === "paper") || (playerSelection === "paper" && computerSelection === "scissors") || (playerSelection === "scissors" && computerSelection === "rock")) {
+    }else if((playerSelection === "Rock" && computerSelection === "Paper") || (playerSelection === "Paper" && computerSelection === "Scissors") || (playerSelection === "Scissors" && computerSelection === "Rock")) {
+        scoreBoardMessage.textContent = `${computerSelection} beats ${playerSelection}`;
         computerScore ++;
-        return lose;
     }else if(playerSelection === computerSelection) {
-        return tie;
+        scoreBoardMessage.textContent = `You both selected ${playerSelection}. Game tied.`
     }   
 }
 
 
-const buttons = document.querySelectorAll("button");
-const gameBoard = document.querySelector("#game-board");
-
+//Start Game and controls
 const start = document.querySelector("#start-menu");
 start.addEventListener("click", e => {
     start.style.display = "none";
+    scoreBoard.style.display = "block";
     gameBoard.style.display = "block";
 });
 
 buttons.forEach((button) => {
     button.addEventListener("click", () => {
         playerSelection = button.id;
-        console.log(playerSelection);
 
-        let result = (playRound(playerSelection));
-        console.log(result);
-
+        playRound(playerSelection);
+        
         scoreboard();
 
        if(playerScore === 5 || computerScore === 5){
@@ -66,9 +69,11 @@ gameOver = () => {
 
 // Scoreboard that keeps track of the score.
 scoreboard = () => {
-    console.log(playerScore);
-    console.log(computerScore);
-}
+    displayPlayerScore.textContent = `Player: ${playerScore}`;
+    displayComputerScore.textContent = `Computer: ${computerScore}`;
+};
+
+
 
 
 
