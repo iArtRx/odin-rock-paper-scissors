@@ -1,16 +1,16 @@
 //DOM selectors
-const buttons = document.querySelectorAll("button");
+const inputs = document.querySelectorAll("input");
 const scoreBoard = document.querySelector(".scoreboard");
-const scoreBoardMessage = document.querySelector("#scoreboardMessage");
-const displayPlayerScore = document.querySelector("#playerScore");
-const displayComputerScore = document.querySelector("#computerScore");
-const gameBoard = document.querySelector("#game-board");
+const scoreBoardMessage = document.querySelector("#scoreboardMessage")
+const player = document.querySelector("#player");
+const computer = document.querySelector("#computer");
+const gameBoard = document.querySelector(".gameboard");
 const displayGameOver = document.querySelector(".game-over");
 
 
-//variables
-let playerSelection;
-let computerSelection;
+//variables 
+let playerChoice;
+let computerChoice;
 let playerScore = 0
 let computerScore = 0;
 
@@ -21,36 +21,37 @@ getComputerChoice = () => {
     return random(computerPick);
 }
 
-playRound = (playerSelection) => {
-    computerSelection = getComputerChoice();
-    if((playerSelection === "Rock" && computerSelection === "Scissors") || (playerSelection === "Scissors" && computerSelection === "Paper") || (playerSelection === "Paper" && computerSelection === "Rock")) {
-        scoreBoardMessage.textContent = winMessage(playerSelection, computerSelection);
+playRound = (playerChoice) => {
+    computerChoice = getComputerChoice();
+    if((playerChoice === "Rock" && computerChoice === "Scissors") || (playerChoice === "Scissors" && computerChoice === "Paper") || (playerChoice === "Paper" && computerChoice === "Rock")) {
+        scoreBoardMessage.textContent = winMessage(playerChoice, computerChoice);
         playerScore ++;
-    }else if((playerSelection === "Rock" && computerSelection === "Paper") || (playerSelection === "Paper" && computerSelection === "Scissors") || (playerSelection === "Scissors" && computerSelection === "Rock")) {
-        scoreBoardMessage.textContent = `${computerSelection} beats ${playerSelection}`;
+    }else if((playerChoice === "Rock" && computerChoice === "Paper") || (playerChoice === "Paper" && computerChoice === "Scissors") || (playerChoice === "Scissors" && computerChoice === "Rock")) {
+        scoreBoardMessage.textContent = loseMessage(playerChoice, computerChoice);
         computerScore ++;
-    }else if(playerSelection === computerSelection) {
-        scoreBoardMessage.textContent = `You both selected ${playerSelection}. Game tied.`
+    }else if(playerChoice === computerChoice) {
+        scoreBoardMessage.textContent = drawMessage(playerChoice);
     }   
 }
 
 
 //Start Game and controls
-const start = document.querySelector("#start-menu");
-start.addEventListener("click", e => {
+const start = document.querySelector(".start-menu");
+start.addEventListener("click", () => {
     start.style.display = "none";
-    scoreBoard.style.display = "block";
-    gameBoard.style.display = "block";
+    scoreBoard.style.display = "flex";
+    gameBoard.style.display = "flex";
+    scoreboard();
 });
 
-buttons.forEach((button) => {
-    button.addEventListener("click", () => {
-        playerSelection = button.id;
+inputs.forEach((input) => {
+    input.addEventListener("click", () => {
+        playerChoice = input.id;
 
-        playRound(playerSelection);
-        
+        playRound(playerChoice);
+
         scoreboard();
-
+        
        if(playerScore === 5 || computerScore === 5){
         gameOver();
        }
@@ -65,21 +66,22 @@ gameOver = () => {
     const gameOverMessage = document.createElement("h2");
     const endGameMessage = document.createElement("p");
     const resetButton = document.createElement("button");
-
-    gameOverMessage.textContent = "GAME OVER";
-    displayGameOver.append(gameOverMessage);
     
     if(playerScore === 5){
-        endGameMessage.textContent = "Congratulations! You are Victorious!";
+        gameOverMessage.textContent = "YOU WON!"
+        displayGameOver.append(gameOverMessage);
+        endGameMessage.textContent = "Congratulations Champion.";
         displayGameOver.append(endGameMessage);
     }else {
+        gameOverMessage.textContent = "GAME OVER";
+        displayGameOver.append(gameOverMessage);
         endGameMessage.textContent = "You have been defeated...";
         displayGameOver.append(endGameMessage);
     }
 
     displayGameOver.append(resetButton);
     resetButton.textContent = "Reset";
-    resetButton.addEventListener("click", e => {
+    resetButton.addEventListener("click", () => {
         reset();
         //clears the Game Over Screen
         displayGameOver.removeChild(gameOverMessage)
@@ -94,25 +96,48 @@ reset = () => {
     computerScore = 0;
     scoreboard();
     scoreBoardMessage.textContent = "";
-    scoreBoard.style.display = "block";
-    gameBoard.style.display = "block";
+    scoreBoard.style.display = "flex";
+    gameBoard.style.display = "flex";
 }
 
 // Scoreboard that keeps track of the score.
 scoreboard = () => {
-    displayPlayerScore.textContent = `Player: ${playerScore}`;
-    displayComputerScore.textContent = `Computer: ${computerScore}`;
+    player.textContent = `Player`;
+    const displayPlayerScore = document.createElement("p");
+    displayPlayerScore.textContent = `${playerScore}`;
+    player.appendChild(displayPlayerScore);
+    computer.textContent = `Computer`;
+    const displayComputerScore = document.createElement("p");
+    displayComputerScore.textContent = `${computerScore}`;
+    computer.appendChild(displayComputerScore);
 };
 
-winMessage = (playerSelection, computerSelection) => {
+//End of Round messages
+winMessage = (playerChoice, computerChoice) => {
     const winArray = [];
-    winArray[0] = `You win this round! ${playerSelection} beats ${computerSelection}`;
-    winArray[1] = `${computerSelection} was no match for ${playerSelection}. You win!`;
-    winArray[2] = `${playerSelection} dominates ${computerSelection}. You take this round!`;
+    winArray[0] = `You win this round! ${playerChoice} beats ${computerChoice}`;
+    winArray[1] = `Easy Win there for ${playerChoice}. ${computerChoice} stood no chance!`;
+    winArray[2] = `${playerChoice} dominates ${computerChoice}.`;
     return random(winArray);
 }
 
-//Helper Functions
+loseMessage = (playerChoice, computerChoice) => {
+    const loseArray = [];
+    loseArray[0] = `${computerChoice} easily defeats ${playerChoice}.`;
+    loseArray[1] = `${playerChoice} was no match ${computerChoice}.`;
+    loseArray[2] = `Take the L. No way ${playerChoice} can beat ${computerChoice}`;
+    return random(loseArray);
+}
+
+drawMessage = (playerChoice) => {
+    const drawArray = [];
+    drawArray[0]=`This time you are evenly matched.`;
+    drawArray[1]=`Both of you picked ${playerChoice}. It's a draw.`;
+    drawArray[2]=`You played ${playerChoice}. They played ${playerChoice}. Insert Spiderman meme.`;
+    return random(drawArray);
+}
+
+//Randomiser
 random = (array) => {
     return array[[Math.floor(Math.random() * array.length)]];
 } 

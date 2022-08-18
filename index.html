@@ -4,23 +4,27 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" href="styles.css">
+    
 </head>
 <body>
-    <h1>Let's Play Rock, Paper, Scissors.</h1>
+    <header id="title">Rock Paper Scissors</header>
     <div class="container">
         <div class="scoreboard" style ="display: none">
-            <div id="playerScore"></div>
-            <div id="computerScore"></div>
+            <div id="player"></div>
+            <div id="playerChoiceImg"></div>
             <div id="scoreboardMessage"></div>
+            <div id="comChoiceImg"></div>
+            <div id="computer"></div>
         </div>
-        <div class id="start-menu">
+        <div class ="start-menu">
             <button id="play">Play</button>
         </div>
-        <div id="game-board" style="display: none">
-            <button id="Rock">Rock</button>
-            <button id="Paper">Paper</button>
-            <button id="Scissors">Scissors</button>
+        <div class="gameboard" style="display: none">
+            <input class="select" type="image" src="images/rock.png" alt="rock" id="Rock"></input>
+            <input class="select" type="image" src="images/paper.png" alt="paper" id="Paper"></input>
+            <input class="select" type="image" src="images/scissors.png" alt="scissors" id="Scissors"></input>
         </div>
 
         <div class="game-over" style="display: none">
