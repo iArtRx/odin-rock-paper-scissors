@@ -60,9 +60,10 @@ inputs.forEach((input) => {
 });
 // Game Over Screen after the player or computer reaches the maximum score. 
 gameOver = () => {
+    document.body.style.backgroundColor = "black";
     gameBoard.style.display = "none";
     scoreBoard.style.display = "none";
-    displayGameOver.style.display = "block";
+    displayGameOver.style.display = "flex";
     const gameOverMessage = document.createElement("h2");
     const endGameMessage = document.createElement("p");
     const resetButton = document.createElement("button");
@@ -80,13 +81,14 @@ gameOver = () => {
     }
 
     displayGameOver.append(resetButton);
-    resetButton.textContent = "Reset";
+    resetButton.textContent = "Play Again";
     resetButton.addEventListener("click", () => {
         reset();
         //clears the Game Over Screen
         displayGameOver.removeChild(gameOverMessage)
         displayGameOver.removeChild(endGameMessage);
-        displayGameOver.removeChild(resetButton);      
+        displayGameOver.removeChild(resetButton);
+        document.body.style.backgroundColor = "white";      
     });
 }
 
@@ -141,6 +143,11 @@ drawMessage = (playerChoice) => {
 random = (array) => {
     return array[[Math.floor(Math.random() * array.length)]];
 } 
+
+//Icon Selector
+let rockIcon = document.createElement("img");
+rockIcon.src = "images/rock.png";
+
 
 
 
