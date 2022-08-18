@@ -62,15 +62,40 @@ gameOver = () => {
     gameBoard.style.display = "none";
     scoreBoard.style.display = "none";
     displayGameOver.style.display = "block";
-    const para = document.createElement("p");
+    const gameOverMessage = document.createElement("h2");
+    const endGameMessage = document.createElement("p");
+    const resetButton = document.createElement("button");
+
+    gameOverMessage.textContent = "GAME OVER";
+    displayGameOver.append(gameOverMessage);
     
     if(playerScore === 5){
-        para.textContent = "Congratulations! You are Victorious!";
-        displayGameOver.append(para);
+        endGameMessage.textContent = "Congratulations! You are Victorious!";
+        displayGameOver.append(endGameMessage);
     }else {
-        para.textContent = "You have been defeated...";
-        displayGameOver.append(para);
+        endGameMessage.textContent = "You have been defeated...";
+        displayGameOver.append(endGameMessage);
     }
+
+    displayGameOver.append(resetButton);
+    resetButton.textContent = "Reset";
+    resetButton.addEventListener("click", e => {
+        reset();
+        //clears the Game Over Screen
+        displayGameOver.removeChild(gameOverMessage)
+        displayGameOver.removeChild(endGameMessage);
+        displayGameOver.removeChild(resetButton);      
+    });
+}
+
+// Resets variables and displays
+reset = () => {
+    playerScore = 0;
+    computerScore = 0;
+    scoreboard();
+    scoreBoardMessage.textContent = "";
+    scoreBoard.style.display = "block";
+    gameBoard.style.display = "block";
 }
 
 // Scoreboard that keeps track of the score.
