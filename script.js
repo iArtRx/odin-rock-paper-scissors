@@ -120,7 +120,7 @@ scoreboard = () => {
 //End of Round messages
 winMessage = (playerChoice, computerChoice) => {
     const winArray = [];
-    winArray[0] = `You win this round! ${playerChoice} beats ${computerChoice}`;
+    winArray[0] = `You win this round! ${playerChoice} beats ${computerChoice}.`;
     winArray[1] = `Easy Win there for ${playerChoice}. ${computerChoice} stood no chance!`;
     winArray[2] = `${playerChoice} dominates ${computerChoice}.`;
     return random(winArray);
@@ -130,7 +130,7 @@ loseMessage = (playerChoice, computerChoice) => {
     const loseArray = [];
     loseArray[0] = `${computerChoice} easily defeats ${playerChoice}.`;
     loseArray[1] = `${playerChoice} was no match ${computerChoice}.`;
-    loseArray[2] = `Take the L. No way ${playerChoice} can beat ${computerChoice}`;
+    loseArray[2] = `Take the L. No way ${playerChoice} can beat ${computerChoice}.`;
     return random(loseArray);
 }
 
