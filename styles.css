@@ -53,6 +53,7 @@
     width: 50%;
     border-radius: 8px;
     margin: 16px 0 64px;
+    font-size: 16px;
 }
 
 #player, #computer {
