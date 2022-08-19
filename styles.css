@@ -15,7 +15,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 32px;
+    padding: 0px 32px;
+
 }
 
 .start-menu {
@@ -25,8 +26,13 @@
     align-items: center;
 }
 
-.start-menu h3 {
+.start-menu h2 {
     margin: 24px;
+    font-size: 24px;
+}
+
+.start-menu h3 {
+    margin: 12px;
 }
 
 .start-menu button {
@@ -44,9 +50,9 @@
     justify-content: center;
     gap: 16px;
     border: 6px solid black;
-    width: 60%;
+    width: 50%;
     border-radius: 8px;
-    margin: 32px;
+    margin: 16px 0 64px;
 }
 
 #player, #computer {
@@ -68,8 +74,8 @@
     display: flex;
     border: 6px solid black;
     border-radius: 8px;
-    margin: 32px;
-    width: 60%;
+    margin: 8px;
+    width: 50%;
     justify-content: space-evenly;
 }
 
@@ -92,7 +98,7 @@ input {
 }
 
 .select {
-    padding: 16px;
+    padding: 30px 16px;
 }
 
 .game-over {
@@ -102,6 +108,7 @@ input {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 160px;
 }
 
 .game-over h2 {

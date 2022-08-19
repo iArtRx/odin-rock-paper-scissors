@@ -1,4 +1,6 @@
 //DOM selectors
+const title = document.querySelector("#title");
+const container = document.querySelector(".container");
 const inputs = document.querySelectorAll("input");
 const scoreBoard = document.querySelector(".scoreboard");
 const scoreBoardMessage = document.querySelector("#scoreboardMessage")
@@ -39,8 +41,7 @@ playRound = (playerChoice) => {
 const start = document.querySelector(".start-menu");
 start.addEventListener("click", () => {
     start.style.display = "none";
-    scoreBoard.style.display = "flex";
-    gameBoard.style.display = "flex";
+    container.style.display = "flex";
     scoreboard();
 });
 
@@ -61,8 +62,8 @@ inputs.forEach((input) => {
 // Game Over Screen after the player or computer reaches the maximum score. 
 gameOver = () => {
     document.body.style.backgroundColor = "black";
-    gameBoard.style.display = "none";
-    scoreBoard.style.display = "none";
+    title.style.display = "none";
+    container.style.display = "none";
     displayGameOver.style.display = "flex";
     const gameOverMessage = document.createElement("h2");
     const endGameMessage = document.createElement("p");
@@ -71,12 +72,12 @@ gameOver = () => {
     if(playerScore === 5){
         gameOverMessage.textContent = "YOU WON!"
         displayGameOver.append(gameOverMessage);
-        endGameMessage.textContent = "Congratulations Champion.";
+        endGameMessage.textContent = endGameWin();
         displayGameOver.append(endGameMessage);
     }else {
         gameOverMessage.textContent = "GAME OVER";
         displayGameOver.append(gameOverMessage);
-        endGameMessage.textContent = "You have been defeated...";
+        endGameMessage.textContent = endGameLose();
         displayGameOver.append(endGameMessage);
     }
 
@@ -84,11 +85,13 @@ gameOver = () => {
     resetButton.textContent = "Play Again";
     resetButton.addEventListener("click", () => {
         reset();
-        //clears the Game Over Screen
         displayGameOver.removeChild(gameOverMessage)
         displayGameOver.removeChild(endGameMessage);
         displayGameOver.removeChild(resetButton);
-        document.body.style.backgroundColor = "white";      
+        displayGameOver.style.display = "none";
+        document.body.style.backgroundColor = "white";
+        title.style.display = "flex";
+        container.style.display = "flex";      
     });
 }
 
@@ -133,20 +136,33 @@ loseMessage = (playerChoice, computerChoice) => {
 
 drawMessage = (playerChoice) => {
     const drawArray = [];
-    drawArray[0]=`This time you are evenly matched.`;
-    drawArray[1]=`Both of you picked ${playerChoice}. It's a draw.`;
-    drawArray[2]=`You played ${playerChoice}. They played ${playerChoice}. Insert Spiderman meme.`;
+    drawArray[0] = `This time you are evenly matched.`;
+    drawArray[1] = `Both of you picked ${playerChoice}. It's a draw.`;
+    drawArray[2] = `You played ${playerChoice}. They played ${playerChoice}. Insert Spiderman meme.`;
     return random(drawArray);
+}
+
+//End Game messages
+endGameWin = () => {
+    const winArray = [];
+    winArray[0] = `Congratulations Champion.`;
+    winArray[1] = `Bask in your victorious glow.`;
+    winArray[2] = `Easy-Peasy.`;
+    return random(winArray);
+}
+
+endGameLose = () => {
+    const loseArray = [];
+    loseArray[0] = `You have been defeated...`;
+    loseArray[1] = `Maybe this isn't the game for you`;
+    loseArray[2] = `Ye, you suck.`;
+    return random(loseArray);
 }
 
 //Randomiser
 random = (array) => {
     return array[[Math.floor(Math.random() * array.length)]];
 } 
-
-//Icon Selector
-let rockIcon = document.createElement("img");
-rockIcon.src = "images/rock.png";
 
 
 
